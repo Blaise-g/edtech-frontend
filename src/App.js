@@ -37,11 +37,21 @@ function App() {
       <Router>
         <Layout toggleDarkMode={toggleDarkMode} toggleAuth={toggleAuth} isAuthenticated={isAuthenticated} useDarkMode={useDarkMode}>
           <Routes>
-            {/* Default route: Redirect to /home */}
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/home" element={isAuthenticated ? <TutorHome /> : <Home />} />
+            {/* Home routes */}
+            <Route path="/" element={isAuthenticated ? <Navigate to="/tutor-home" /> : <Home />} />
+            <Route path="/home" element={isAuthenticated ? <Navigate to="/tutor-home" /> : <Home />} />
+
+            {/* TutorHome route */}
+            <Route 
+              path="/tutor-home" 
+              element={isAuthenticated ? <TutorHome /> : <Navigate to="/" />} 
+            />
+
+            {/* Auth routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+
+            {/* Protected routes */}
             <Route 
               path="/doc-chat" 
               element={isAuthenticated ? <DocChat /> : <Navigate to="/login" />} 
